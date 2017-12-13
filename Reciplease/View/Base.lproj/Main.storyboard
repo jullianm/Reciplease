@@ -5,37 +5,210 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Chalkduster.ttf">
+            <string>Chalkduster</string>
+        </array>
+    </customFonts>
     <scenes>
-        <!--First View Controller-->
+        <!--Search VC-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Search VC" id="9pv-A4-QxB" customClass="FirstViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reciplease" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xhd-fC-aZP">
+                                <rect key="frame" x="37.5" y="20" width="300" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="2aA-Ky-vRu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="28"/>
+                                <color key="textColor" red="0.94109404090000004" green="0.94122928380000004" blue="0.9410645366" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0gX-wv-CHT">
+                                <rect key="frame" x="0.0" y="94" width="375" height="104"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What's in your frige ?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s62-Pl-etG">
+                                        <rect key="frame" x="38" y="11" width="299.5" height="25.5"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" allowsEditingTextAttributes="YES" borderStyle="roundedRect" clearsOnBeginEditing="YES" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="GnX-0H-HJQ">
+                                        <rect key="frame" x="11.5" y="52" width="240.5" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="M1u-re-b9D"/>
+                                        </constraints>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Lemon, Cheese, Sausages..">
+                                                <attributes>
+                                                    <font key="NSFont" size="13" name="Chalkduster"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="31J-Hu-N3T">
+                                        <rect key="frame" x="302" y="53" width="61" height="28"/>
+                                        <color key="backgroundColor" red="0.26736867427825928" green="0.58167803287506104" blue="0.36597123742103577" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="12"/>
+                                        <state key="normal" title="Add">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addIngredient:" destination="9pv-A4-QxB" eventType="touchUpInside" id="IXB-al-PJQ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="s62-Pl-etG" firstAttribute="bottom" secondItem="0gX-wv-CHT" secondAttribute="centerY" multiplier="0.7" id="9xd-ir-nbF"/>
+                                    <constraint firstItem="GnX-0H-HJQ" firstAttribute="centerX" secondItem="0gX-wv-CHT" secondAttribute="centerX" multiplier="0.7" id="Mqg-e8-WQ5"/>
+                                    <constraint firstItem="s62-Pl-etG" firstAttribute="centerX" secondItem="0gX-wv-CHT" secondAttribute="centerX" id="U3I-aW-vHU"/>
+                                    <constraint firstItem="31J-Hu-N3T" firstAttribute="centerY" secondItem="GnX-0H-HJQ" secondAttribute="centerY" id="YDW-34-y5l"/>
+                                    <constraint firstAttribute="trailing" secondItem="31J-Hu-N3T" secondAttribute="trailing" constant="12" id="d1r-NA-A0C"/>
+                                    <constraint firstItem="GnX-0H-HJQ" firstAttribute="top" secondItem="0gX-wv-CHT" secondAttribute="centerY" id="gaa-yM-DQ8"/>
+                                    <constraint firstAttribute="height" constant="104" id="gpk-yw-Vgr"/>
+                                    <constraint firstItem="31J-Hu-N3T" firstAttribute="leading" secondItem="GnX-0H-HJQ" secondAttribute="trailing" multiplier="1.2" id="igC-tD-i9R"/>
+                                    <constraint firstItem="s62-Pl-etG" firstAttribute="width" secondItem="0gX-wv-CHT" secondAttribute="width" multiplier="0.8" id="zMA-2s-P1g"/>
+                                    <constraint firstItem="GnX-0H-HJQ" firstAttribute="width" secondItem="s62-Pl-etG" secondAttribute="width" multiplier="0.8" id="zhI-vL-326"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1v-q0-xje">
+                                <rect key="frame" x="302" y="213.5" width="61" height="28"/>
+                                <color key="backgroundColor" red="0.53328466415405273" green="0.53336447477340698" blue="0.53326719999313354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="12"/>
+                                <state key="normal" title="Clear">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="clearIngredients:" destination="9pv-A4-QxB" eventType="touchUpInside" id="yRy-1u-2AV"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your ingredients :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Thp-xq-sHW">
+                                <rect key="frame" x="16.5" y="218" width="192" height="19"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OvE-aO-LKm">
+                                <rect key="frame" x="37.5" y="533.5" width="300" height="66.5"/>
+                                <color key="backgroundColor" red="0.26736867427825928" green="0.58167803287506104" blue="0.36597123742103577" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                <state key="normal" title="Search for recipes">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zwI-3T-jGo">
+                                <rect key="frame" x="41.5" y="247" width="187.5" height="276.5"/>
+                                <color key="backgroundColor" red="0.21675819158554077" green="0.20060053467750549" blue="0.19706970453262329" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="separatorColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ingredient_cell" id="sY6-wD-Lzj" customClass="IngredientCell" customModule="Reciplease" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="187.5" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sY6-wD-Lzj" id="OcD-JQ-d5j">
+                                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQN-R7-aAO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="187.5" height="43.5"/>
+                                                    <color key="backgroundColor" red="0.21675819158554077" green="0.20060053467750549" blue="0.19706970453262329" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="hQN-R7-aAO" firstAttribute="centerX" secondItem="OcD-JQ-d5j" secondAttribute="centerX" id="BLb-e1-1wb"/>
+                                                <constraint firstItem="hQN-R7-aAO" firstAttribute="width" secondItem="OcD-JQ-d5j" secondAttribute="width" id="Fr5-AA-Yvm"/>
+                                                <constraint firstItem="hQN-R7-aAO" firstAttribute="centerY" secondItem="OcD-JQ-d5j" secondAttribute="centerY" id="Pkd-fo-rgb"/>
+                                                <constraint firstItem="hQN-R7-aAO" firstAttribute="height" secondItem="OcD-JQ-d5j" secondAttribute="height" id="TuB-Ka-NO1"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="ingredientName" destination="hQN-R7-aAO" id="fgx-Po-bQ6"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" red="0.21675819158554077" green="0.20060053467750549" blue="0.19706970453262329" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="OvE-aO-LKm" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="0mc-pz-XKG"/>
+                            <constraint firstItem="OvE-aO-LKm" firstAttribute="top" secondItem="zwI-3T-jGo" secondAttribute="bottom" constant="10" id="1JN-up-cOw"/>
+                            <constraint firstItem="xhd-fC-aZP" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="20" id="1PP-3h-Wh6"/>
+                            <constraint firstItem="j1v-q0-xje" firstAttribute="centerY" secondItem="Thp-xq-sHW" secondAttribute="centerY" id="8Lw-my-1gI"/>
+                            <constraint firstItem="Thp-xq-sHW" firstAttribute="top" secondItem="0gX-wv-CHT" secondAttribute="bottom" constant="20" id="92P-JU-Tro"/>
+                            <constraint firstItem="j1v-q0-xje" firstAttribute="width" secondItem="31J-Hu-N3T" secondAttribute="width" id="9dg-d2-7L8"/>
+                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="OvE-aO-LKm" secondAttribute="bottom" multiplier="1.03" id="Bi0-RS-Xys"/>
+                            <constraint firstItem="zwI-3T-jGo" firstAttribute="top" secondItem="Thp-xq-sHW" secondAttribute="bottom" constant="10" id="Irr-8T-P1l"/>
+                            <constraint firstItem="0gX-wv-CHT" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="NLf-xD-0cr"/>
+                            <constraint firstItem="Thp-xq-sHW" firstAttribute="width" secondItem="GnX-0H-HJQ" secondAttribute="width" multiplier="0.8" id="UjJ-ZK-SEO"/>
+                            <constraint firstItem="xhd-fC-aZP" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="Va8-yO-s0u"/>
+                            <constraint firstItem="j1v-q0-xje" firstAttribute="leading" secondItem="31J-Hu-N3T" secondAttribute="leading" id="XYx-Iy-Scj"/>
+                            <constraint firstItem="zwI-3T-jGo" firstAttribute="width" secondItem="tsR-hK-woN" secondAttribute="width" multiplier="0.5" id="ZvM-Gq-Pl6"/>
+                            <constraint firstItem="OvE-aO-LKm" firstAttribute="height" secondItem="tsR-hK-woN" secondAttribute="height" multiplier="0.1" id="enP-jZ-lt6"/>
+                            <constraint firstItem="xhd-fC-aZP" firstAttribute="width" secondItem="tsR-hK-woN" secondAttribute="width" multiplier="0.8" id="fC0-xr-G66"/>
+                            <constraint firstItem="Thp-xq-sHW" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" multiplier="0.6" id="ks2-ei-kN7"/>
+                            <constraint firstItem="OvE-aO-LKm" firstAttribute="width" secondItem="tsR-hK-woN" secondAttribute="width" multiplier="0.8" id="nVu-ck-hJn"/>
+                            <constraint firstItem="0gX-wv-CHT" firstAttribute="width" secondItem="tsR-hK-woN" secondAttribute="width" id="oTD-o9-Kex"/>
+                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="j1v-q0-xje" secondAttribute="trailing" constant="12" id="ojF-1s-2vu"/>
+                            <constraint firstItem="0gX-wv-CHT" firstAttribute="top" secondItem="xhd-fC-aZP" secondAttribute="bottom" constant="24" id="pvf-9s-wwd"/>
+                            <constraint firstItem="zwI-3T-jGo" firstAttribute="leading" secondItem="Thp-xq-sHW" secondAttribute="leading" multiplier="2.5" id="rhJ-H4-bGR"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="search" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="" image="search_bar_item" id="acW-dT-cKf"/>
+                    <connections>
+                        <outlet property="addButton" destination="31J-Hu-N3T" id="PbL-Pc-vPS"/>
+                        <outlet property="clearButton" destination="j1v-q0-xje" id="JUd-aY-frD"/>
+                        <outlet property="ingredientInput" destination="GnX-0H-HJQ" id="yEB-ZY-64I"/>
+                        <outlet property="ingredientsList" destination="zwI-3T-jGo" id="6NY-JC-aLD"/>
+                        <outlet property="searchForRecipes" destination="OvE-aO-LKm" id="vJp-wH-WaF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="-320"/>
+            <point key="canvasLocation" x="748" y="-321.58920539730138"/>
         </scene>
-        <!--Second View Controller-->
+        <!--Favorites VC-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Favorites VC" id="8rJ-Kc-sve" customClass="SecondViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reciplease" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f43-w7-wz6">
+                                <rect key="frame" x="37.5" y="20" width="300" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="w6h-In-LG8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="28"/>
+                                <color key="textColor" red="0.94109404090000004" green="0.94122928380000004" blue="0.9410645366" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" red="0.21675819158554077" green="0.20060053467750549" blue="0.19706970453262329" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="f43-w7-wz6" firstAttribute="centerX" secondItem="O1u-W8-tvY" secondAttribute="centerX" id="0Yj-yJ-4gq"/>
+                            <constraint firstItem="f43-w7-wz6" firstAttribute="width" secondItem="QS5-Rx-YEW" secondAttribute="width" multiplier="0.8" id="7U9-f9-lUJ"/>
+                            <constraint firstItem="f43-w7-wz6" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" constant="20" id="W4l-6Q-3Jj"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="" image="favorites_bar_item" id="cPa-gy-q4n"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
@@ -62,4 +235,8 @@
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="favorites_bar_item" width="112" height="25"/>
+        <image name="search_bar_item" width="78" height="25"/>
+    </resources>
 </document>
