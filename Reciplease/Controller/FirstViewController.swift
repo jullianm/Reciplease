@@ -18,13 +18,22 @@ class FirstViewController: UIViewController, UITextFieldDelegate, UITableViewDat
     
     var ingredients = [String]()
     var userDidTypeSomething: Bool = false
+    var request = FetchingRecipesList()
+    var recipesTest = [RecipeInformations]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.ingredientInput.delegate = self
         self.ingredientsList.dataSource = self
         let endEditing = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard(_:)))
         self.view.addGestureRecognizer(endEditing)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func viewWillLayoutSubviews() {
@@ -75,11 +84,39 @@ class FirstViewController: UIViewController, UITextFieldDelegate, UITableViewDat
         displayIngredientsExample()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
     @IBAction func clearIngredients(_ sender: UITapGestureRecognizer) {
+        ingredientInput.resignFirstResponder()
         ingredients = [String]()
         displayIngredientsExample()
         ingredientsList.reloadData()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        request.recipesRequest { (recipes) in
+            self.recipesTest = recipes
+            let destVC = segue.destination as? RecipesViewController
+            destVC?.recipesList = self.recipesTest
+            destVC?.recipes.reloadData()
+            destVC?.recipes.separatorColor = UIColor(named: "White")
+            destVC?.activity.isHidden = true
+        }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if !ingredients.isEmpty {
+            self.request.searchForRecipesWithIngredients = self.ingredients
+            return true
+        }
+        return false
+
+    }
+
 }
 
