@@ -10,22 +10,21 @@ import Foundation
 
 struct RecipeInformations {
     
-    let id: String
+    let name: String
     let ingredients: String
-    let rating: String
-    let recipeName: String
-    let recipeImage: URL
-    let cookingTime: String
-
+    let portions: String
+    let rating: String?
+    let time: String?
+    let image: String?
     
-    init(id: String,ingredients: String, rating: String, recipeName: String, recipeImage: URL, cookingTime: String) {
+    
+    init(name: String, ingredients: String, portions: String, rating: String?, time: String?, image: String?) {
         
-        self.id = id
+        self.name = name
         self.ingredients = ingredients
+        self.portions = portions
         self.rating = rating
-        self.recipeName = recipeName
-        self.recipeImage = recipeImage
-        self.cookingTime = cookingTime
-    
+        self.time = time
+        self.image = image
     }
 }

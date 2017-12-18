@@ -8,7 +8,7 @@
 
 import Foundation
 
-// MARK:- Decoding weather
+// MARK:- Decoding 'Search recipes response'
 
 struct Root : Decodable {
     let matches : [Matches]
@@ -21,6 +21,19 @@ struct Matches : Decodable {
     let imageUrlsBySize: [String:URL]
     let id: String
     let totalTimeInSeconds: Int?
+}
+
+// MARK:- Decoding 'Get recipes response'
+
+struct GetRecipesRoot: Decodable {
+    let images: [Images]
+    let ingredientLines: [String]
+}
+
+struct Images: Decodable {
+    let hostedLargeUrl: String
+    let hostedMediumUrl: String
+    let hostedSmallUrl: String
 }
 
 

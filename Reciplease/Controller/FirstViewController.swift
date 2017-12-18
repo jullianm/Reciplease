@@ -16,10 +16,10 @@ class FirstViewController: UIViewController, UITextFieldDelegate, UITableViewDat
     @IBOutlet weak var searchForRecipes: UIButton!
     @IBOutlet weak var ingredientsList: UITableView!
     
+    var request = FetchingRecipesList()
     var ingredients = [String]()
     var userDidTypeSomething: Bool = false
-    var request = FetchingRecipesList()
-    var recipesTest = [RecipeInformations]()
+    var recipes = [RecipeInformations]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +28,15 @@ class FirstViewController: UIViewController, UITextFieldDelegate, UITableViewDat
         self.ingredientsList.dataSource = self
         let endEditing = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard(_:)))
         self.view.addGestureRecognizer(endEditing)
+        let recipes = Notification.Name(rawValue: "gotRecipes")
+        NotificationCenter.default.addObserver(self, selector: #selector(receivedRecipes),name: recipes, object: nil)
     }
     
+    @objc func receivedRecipes() {
+        recipes = request.recipeDetails
+        print(recipes)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -98,15 +105,7 @@ class FirstViewController: UIViewController, UITextFieldDelegate, UITableViewDat
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        request.recipesRequest { (recipes) in
-            self.recipesTest = recipes
-            let destVC = segue.destination as? RecipesViewController
-            destVC?.recipesList = self.recipesTest
-            destVC?.recipes.reloadData()
-            destVC?.recipes.separatorColor = UIColor(named: "White")
-            destVC?.activity.isHidden = true
-        }
+        request.recipesRequest()        
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -115,8 +114,6 @@ class FirstViewController: UIViewController, UITextFieldDelegate, UITableViewDat
             return true
         }
         return false
-
     }
-
 }
 

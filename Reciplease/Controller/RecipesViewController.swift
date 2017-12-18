@@ -18,6 +18,7 @@ class RecipesViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         self.recipes.delegate = self
         self.recipes.dataSource = self
+        
     }
     
 
@@ -30,15 +31,15 @@ class RecipesViewController: UIViewController, UITableViewDataSource, UITableVie
         whichFrame = cell.frame
         cell.separatorInset = UIEdgeInsets.zero
         
-        cell.recipeName.text = recipesList[indexPath.item].recipeName
-        cell.recipeIngredientsName.text = recipesList[indexPath.item].ingredients
-        cell.recipeCookingTime.text = recipesList[indexPath.item].cookingTime
-        cell.recipeMark.text = recipesList[indexPath.item].rating
-        
-        let imageString = recipesList[indexPath.item].recipeImage
-        let data = try? Data(contentsOf: imageString)
-        let image = UIImage(data: data!)
-        cell.recipeImage.image = image
+        cell.recipeName.text = recipesList[indexPath.item].name
+//        cell.recipeIngredientsName.text = recipesList[indexPath.item].ingredients
+//        cell.recipeCookingTime.text = recipesList[indexPath.item].time
+//        cell.recipeMark.text = recipesList[indexPath.item].rating
+//
+//        let imageString = recipesList[indexPath.item].image
+//        let data = try? Data(contentsOf: imageString)
+//        let image = UIImage(data: data!)
+//        cell.recipeImage.image = image
         
         
         return cell
