@@ -12,19 +12,9 @@ struct RecipeInformations {
     
     let name: String
     let ingredients: String
-    let portions: String
+    let portions: [String]
     let rating: String?
     let time: String?
-    let image: String?
+    let image: URL?
     
-    
-    init(name: String, ingredients: String, portions: String, rating: String?, time: String?, image: String?) {
-        
-        self.name = name
-        self.ingredients = ingredients
-        self.portions = portions
-        self.rating = rating
-        self.time = time
-        self.image = image
-    }
 }

@@ -18,7 +18,6 @@ struct Matches : Decodable {
     let ingredients: [String]
     let rating: Int?
     let recipeName: String
-    let imageUrlsBySize: [String:URL]
     let id: String
     let totalTimeInSeconds: Int?
 }
@@ -26,14 +25,14 @@ struct Matches : Decodable {
 // MARK:- Decoding 'Get recipes response'
 
 struct GetRecipesRoot: Decodable {
-    let images: [Images]
+    let images: [Images]?
     let ingredientLines: [String]
 }
 
 struct Images: Decodable {
-    let hostedLargeUrl: String
-    let hostedMediumUrl: String
-    let hostedSmallUrl: String
+    let hostedLargeUrl: URL?
+    let hostedMediumUrl: URL?
+    let hostedSmallUrl: URL?
 }
 
 

@@ -9,7 +9,7 @@
 import UIKit
 
 class FirstViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
-    
+  
     @IBOutlet weak var ingredientInput: UITextField!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var clearButton: UIButton!
@@ -19,27 +19,18 @@ class FirstViewController: UIViewController, UITextFieldDelegate, UITableViewDat
     var request = FetchingRecipesList()
     var ingredients = [String]()
     var userDidTypeSomething: Bool = false
-    var recipes = [RecipeInformations]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.ingredientInput.delegate = self
         self.ingredientsList.dataSource = self
         let endEditing = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard(_:)))
         self.view.addGestureRecognizer(endEditing)
-        let recipes = Notification.Name(rawValue: "gotRecipes")
-        NotificationCenter.default.addObserver(self, selector: #selector(receivedRecipes),name: recipes, object: nil)
     }
     
-    @objc func receivedRecipes() {
-        recipes = request.recipeDetails
-        print(recipes)
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
@@ -55,6 +46,7 @@ class FirstViewController: UIViewController, UITextFieldDelegate, UITableViewDat
         ingredientInput.layer.shadowOpacity = 1.0
         ingredientInput.layer.shadowRadius = 0.0
     }
+    
     
     @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         ingredientInput.resignFirstResponder()
@@ -90,12 +82,7 @@ class FirstViewController: UIViewController, UITextFieldDelegate, UITableViewDat
         }
         displayIngredientsExample()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-    }
+
     
     @IBAction func clearIngredients(_ sender: UITapGestureRecognizer) {
         ingredientInput.resignFirstResponder()
@@ -104,16 +91,19 @@ class FirstViewController: UIViewController, UITextFieldDelegate, UITableViewDat
         ingredientsList.reloadData()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        request.recipesRequest()        
-    }
-    
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+    @IBAction func searchForRecipes(_ sender: UIButton) {
         if !ingredients.isEmpty {
             self.request.searchForRecipesWithIngredients = self.ingredients
-            return true
+            self.request.recipesRequest()
+            let destVC = storyboard?.instantiateViewController(withIdentifier: "recipesList") as? RecipesViewController
+            show(destVC!, sender: self)
         }
-        return false
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
 }
 

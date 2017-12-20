@@ -10,5 +10,6 @@ import UIKit
 
 class DetailedPortionCell: UITableViewCell {
 
-
+    @IBOutlet weak var portion: UILabel!
+    
 }

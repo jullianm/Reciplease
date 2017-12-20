@@ -9,16 +9,16 @@
 import Foundation
 import Alamofire
 
+
 class FetchingRecipesList {
     
     var searchForRecipesWithIngredients: [String] = []
-    var recipeDetails = [RecipeInformations]()
     
     func recipesRequest() {
         
         let url = URL(string: "https://api.yummly.com/v1/api/recipes?")
         let HTTPHeaders: HTTPHeaders = ["X-Yummly-App-ID":"dda042d2","X-Yummly-App-Key":"6b4afceb278126620adba7ff792f8b86"]
-        let parameters: Parameters = ["q": searchForRecipesWithIngredients, "maxResult": 20, "start": 20]
+        let parameters: Parameters = ["q": searchForRecipesWithIngredients]
    
         DispatchQueue.global(qos: .userInteractive).async {
             
@@ -28,13 +28,14 @@ class FetchingRecipesList {
                 self.getRecipes(searchRecipes: searchRecipesData)
             }
         }
-  
     }
     
     func getRecipes(searchRecipes: Data) {
         
+        var recipeDetails = [RecipeInformations]()
+        
         let parameters: Parameters = ["_app_id":"dda042d2","_app_key":"6b4afceb278126620adba7ff792f8b86"]
-            
+        
             do {
                 let decoder = JSONDecoder()
                 let root = try decoder.decode(Root.self, from: searchRecipes)
@@ -51,11 +52,18 @@ class FetchingRecipesList {
                             
                         let detail = try decoder.decode(GetRecipesRoot.self, from: getRecipeData)
                             
-                            var mark = String()
-                            var duration = String()
-                            var largeImage = String()
+                            var mark: String
+                            var duration: String?
+                            var finalImage: URL?
 
-                            if let rating = match.rating { mark = String(rating) } else { mark = "" }
+                            // Safely Unwrapping Recipe Rating
+                            if let rating = match.rating {
+                                mark = String(rating)
+                            } else {
+                                mark = ""
+                            }
+                            
+                            // Safely Unwrapping Recipe Cooking Time and Converting Value In Hours and Minutes
                             if let cookingtime = match.totalTimeInSeconds {
                                 let time = DateComponentsFormatter()
                                 time.allowedUnits = [.hour, .minute]
@@ -63,17 +71,30 @@ class FetchingRecipesList {
                                 duration = time.string(from: TimeInterval(cookingtime))!
                             } else { duration = "" }
                             
-                            for image in detail.images {
-                                largeImage = image.hostedLargeUrl
+                            // Safely Unwrapping Recipe Images
+                            
+                            if let images = detail.images {
+                                for image in images {
+                                    if let largeImage = image.hostedLargeUrl {
+                                        finalImage = largeImage
+                                    } else if let mediumImage = image.hostedMediumUrl {
+                                        finalImage = mediumImage
+                                    }
+                                }
+                            } else {
+                                finalImage = URL(string:"http://i2.yummly.com/Hot-Turkey-Salad-Sandwiches-Allrecipes.l.png")
                             }
-
-                            self.recipeDetails.append(RecipeInformations(name: match.recipeName, ingredients: match.ingredients.joined(separator: ", "), portions: detail.ingredientLines.joined(separator: ", "), rating: mark, time: duration, image: largeImage))
-          
-                            if self.recipeDetails.count == root.matches.count {
+                            
+                            // Appending each of our recipe object to the array
+                            recipeDetails.append(RecipeInformations(name: match.recipeName, ingredients: match.ingredients.joined(separator: ", "), portions: detail.ingredientLines, rating: mark, time: duration, image: finalImage))
+                            
+                            // when loop is finished, array is filled we recipes object thus we post a notification
+                            
+                            if recipeDetails.count == root.matches.count {
                                 
-                                let recipes = Notification.Name(rawValue: "gotRecipes")
-                                let notification = Notification(name: recipes)
-                                NotificationCenter.default.post(notification)
+                                let recipes = Notification.Name(rawValue: "recipes")
+                                NotificationCenter.default.post(name: recipes, object: nil, userInfo: ["Data": recipeDetails])
+                                
                             }
                         } catch {
                             print(error)
@@ -84,7 +105,6 @@ class FetchingRecipesList {
             } catch {
                 print(error)
             }
-        
     }
 }
 
