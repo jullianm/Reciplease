@@ -15,5 +15,21 @@ class RecipeCell: UITableViewCell {
     @IBOutlet weak var recipeIngredientsName: UILabel!
     @IBOutlet weak var recipeMark: UILabel!
     @IBOutlet weak var recipeCookingTime: UILabel!
+    
+    let gradientLayer: CAGradientLayer = {
+        let layer = CAGradientLayer()
+        layer.colors = [
+            UIColor.clear.cgColor,
+            UIColor.black.cgColor
+        ]
+        layer.locations = [0.7, 1]
+        return layer
+    }()
+    
+    
+    override func layoutSubviews() {
+        gradientLayer.frame = recipeImage.bounds
+        recipeImage.layer.addSublayer(gradientLayer)
+    }
 
 }

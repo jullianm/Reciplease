@@ -27,12 +27,17 @@ struct Matches : Decodable {
 struct GetRecipesRoot: Decodable {
     let images: [Images]?
     let ingredientLines: [String]
+    let source: Sources
 }
 
 struct Images: Decodable {
     let hostedLargeUrl: URL?
     let hostedMediumUrl: URL?
     let hostedSmallUrl: URL?
+}
+
+struct Sources: Decodable {
+    let sourceRecipeUrl: URL
 }
 
 

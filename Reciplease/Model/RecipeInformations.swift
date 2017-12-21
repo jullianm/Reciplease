@@ -16,5 +16,6 @@ struct RecipeInformations {
     let rating: String?
     let time: String?
     let image: URL?
+    let instructions: URL
     
 }

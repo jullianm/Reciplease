@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class DetailedRecipesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -19,11 +20,28 @@ class DetailedRecipesViewController: UIViewController, UITableViewDataSource, UI
     
     var recipes = [RecipeInformations]()
     var selectedRecipe = Int()
+    let gradientLayer: CAGradientLayer = {
+        let layer = CAGradientLayer()
+        layer.colors = [
+            UIColor.clear.cgColor,
+            UIColor.black.cgColor
+        ]
+        layer.locations = [0.7, 1]
+        return layer
+        
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.detailedPortions.dataSource = self
+        recipeImage.layer.addSublayer(gradientLayer)
+        gradientLayer.frame = recipeImage.bounds
     }
+    
+    override func viewDidLayoutSubviews() {
+        gradientLayer.frame = recipeImage.bounds
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recipes[selectedRecipe].portions.count
@@ -43,12 +61,7 @@ class DetailedRecipesViewController: UIViewController, UITableViewDataSource, UI
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let size = tableView.frame.height / CGFloat(recipes[selectedRecipe].portions.count)
-        return size
-    }
-    
+        
     @IBAction func didTapFavorites(_ sender: UITapGestureRecognizer) {
         if favoritesButton.tintColor == #colorLiteral(red: 0.2673686743, green: 0.5816780329, blue: 0.3659712374, alpha: 1) {
             favoritesButton.tintColor = nil
@@ -57,7 +70,13 @@ class DetailedRecipesViewController: UIViewController, UITableViewDataSource, UI
         }
     }
     
+    @IBAction func getDirections(_ sender: UIButton) {
+        let url = recipes[selectedRecipe].instructions
+        let svc = SFSafariViewController(url: url)
+        present(svc, animated: true, completion: nil)
+    }
     
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         

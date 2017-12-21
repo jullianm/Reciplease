@@ -10,22 +10,36 @@ import UIKit
 
 class RecipesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    // MARK:- Properties
     
     @IBOutlet weak var recipes: UITableView!
     @IBOutlet weak var activity: UIActivityIndicatorView!
     
     var request = FetchingRecipesList()
     var recipesList = [RecipeInformations]()
-
+    let receivedRecipes = Notification.Name(rawValue: "recipes")
+    let error = Notification.Name(rawValue: "Error")
+    
+    // MARK:- Methods
+    
     override func viewDidLoad() {
         self.recipes.delegate = self
         self.recipes.dataSource = self
         createObservers()
     }
     
+    
     func createObservers() {
-        let recipes = Notification.Name(rawValue: "recipes")
-        NotificationCenter.default.addObserver(self, selector: #selector(receivedRecipes(notification:)),name: recipes, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(receivedRecipes(notification:)),name: receivedRecipes, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(displayErrorAlert), name: error, object: nil)
+    }
+    
+@objc func displayErrorAlert() {
+        
+        let alertVC = UIAlertController(title: "Error", message: "Couldn't retrieve data from server", preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
     }
     
 @objc func receivedRecipes(notification: Notification) {
@@ -36,7 +50,7 @@ class RecipesViewController: UIViewController, UITableViewDataSource, UITableVie
         recipes.reloadData()
     }
 }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recipesList.count
     }
@@ -45,7 +59,7 @@ class RecipesViewController: UIViewController, UITableViewDataSource, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "recipe_cell") as! RecipeCell
 
         cell.separatorInset = UIEdgeInsets.zero
-        
+                
         cell.recipeName.text = recipesList[indexPath.item].name
         cell.recipeIngredientsName.text = recipesList[indexPath.item].ingredients
         cell.recipeCookingTime.text = recipesList[indexPath.item].time
@@ -58,7 +72,7 @@ class RecipesViewController: UIViewController, UITableViewDataSource, UITableVie
         
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let size = tableView.frame.height
         let count = recipesList.count

@@ -19,8 +19,6 @@
 		81122BB71FE25C7C00864D37 /* DetailedRecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81122BB61FE25C7C00864D37 /* DetailedRecipesViewController.swift */; };
 		81122BBD1FE2728200864D37 /* FetchingRecipesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81122BBC1FE2728200864D37 /* FetchingRecipesList.swift */; };
 		81122BBF1FE278D500864D37 /* DetailedPortionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81122BBE1FE278D500864D37 /* DetailedPortionCell.swift */; };
-		81122BC11FE287A400864D37 /* DetailedInstructionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81122BC01FE287A400864D37 /* DetailedInstructionsCell.swift */; };
-		81122BC51FE2887900864D37 /* DetailedInstructionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81122BC41FE2887900864D37 /* DetailedInstructionsTableViewController.swift */; };
 		81122BC71FE3DB9500864D37 /* JSONDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81122BC61FE3DB9500864D37 /* JSONDataModel.swift */; };
 		81122BC91FE3FC9900864D37 /* RecipeInformations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81122BC81FE3FC9900864D37 /* RecipeInformations.swift */; };
 		814ABCC61FE665F600A7BD60 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814ABCC51FE665F600A7BD60 /* RecipeCell.swift */; };
@@ -58,8 +56,6 @@
 		81122BB61FE25C7C00864D37 /* DetailedRecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedRecipesViewController.swift; sourceTree = "<group>"; };
 		81122BBC1FE2728200864D37 /* FetchingRecipesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchingRecipesList.swift; sourceTree = "<group>"; };
 		81122BBE1FE278D500864D37 /* DetailedPortionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPortionCell.swift; sourceTree = "<group>"; };
-		81122BC01FE287A400864D37 /* DetailedInstructionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInstructionsCell.swift; sourceTree = "<group>"; };
-		81122BC41FE2887900864D37 /* DetailedInstructionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInstructionsTableViewController.swift; sourceTree = "<group>"; };
 		81122BC61FE3DB9500864D37 /* JSONDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDataModel.swift; sourceTree = "<group>"; };
 		81122BC81FE3FC9900864D37 /* RecipeInformations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInformations.swift; sourceTree = "<group>"; };
 		814ABCC51FE665F600A7BD60 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
@@ -154,11 +150,10 @@
 			isa = PBXGroup;
 			children = (
 				81122B921FE108C700864D37 /* Main.storyboard */,
-				814ABCC91FE6B66B00A7BD60 /* markAndCookingView.swift */,
-				814ABCC51FE665F600A7BD60 /* RecipeCell.swift */,
 				81122BB21FE15CAE00864D37 /* IngredientCell.swift */,
+				814ABCC51FE665F600A7BD60 /* RecipeCell.swift */,
 				81122BBE1FE278D500864D37 /* DetailedPortionCell.swift */,
-				81122BC01FE287A400864D37 /* DetailedInstructionsCell.swift */,
+				814ABCC91FE6B66B00A7BD60 /* markAndCookingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -167,10 +162,9 @@
 			isa = PBXGroup;
 			children = (
 				81122B8E1FE108C700864D37 /* FirstViewController.swift */,
+				81122B901FE108C700864D37 /* SecondViewController.swift */,
 				814ABCC71FE6662100A7BD60 /* RecipesViewController.swift */,
 				81122BB61FE25C7C00864D37 /* DetailedRecipesViewController.swift */,
-				81122BC41FE2887900864D37 /* DetailedInstructionsTableViewController.swift */,
-				81122B901FE108C700864D37 /* SecondViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -413,9 +407,7 @@
 				81122BBD1FE2728200864D37 /* FetchingRecipesList.swift in Sources */,
 				81122BC91FE3FC9900864D37 /* RecipeInformations.swift in Sources */,
 				81122B8F1FE108C700864D37 /* FirstViewController.swift in Sources */,
-				81122BC51FE2887900864D37 /* DetailedInstructionsTableViewController.swift in Sources */,
 				81122BC71FE3DB9500864D37 /* JSONDataModel.swift in Sources */,
-				81122BC11FE287A400864D37 /* DetailedInstructionsCell.swift in Sources */,
 				81122BB71FE25C7C00864D37 /* DetailedRecipesViewController.swift in Sources */,
 				814ABCC61FE665F600A7BD60 /* RecipeCell.swift in Sources */,
 				814ABCC81FE6662100A7BD60 /* RecipesViewController.swift in Sources */,
