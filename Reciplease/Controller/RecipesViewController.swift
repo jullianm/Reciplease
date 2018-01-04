@@ -28,7 +28,6 @@ class RecipesViewController: UIViewController, UITableViewDataSource, UITableVie
         createObservers()
     }
     
-    
     func createObservers() {
         
         NotificationCenter.default.addObserver(self, selector: #selector(receivedRecipes(notification:)),name: receivedRecipes, object: nil)
@@ -36,10 +35,11 @@ class RecipesViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
 @objc func displayErrorAlert() {
-        
+    
         let alertVC = UIAlertController(title: "Error", message: "Couldn't retrieve data from server", preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alertVC, animated: true, completion: nil)
+    self.present(alertVC, animated: true, completion: nil)
+    
     }
     
 @objc func receivedRecipes(notification: Notification) {
@@ -66,7 +66,7 @@ class RecipesViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.recipeMark.text = recipesList[indexPath.item].rating
 
         let imageString = recipesList[indexPath.item].image
-        let data = try? Data(contentsOf: imageString!)
+        let data = try? Data(contentsOf: imageString)
         let image = UIImage(data: data!)
         cell.recipeImage.image = image
         
@@ -79,12 +79,12 @@ class RecipesViewController: UIViewController, UITableViewDataSource, UITableVie
         return size / CGFloat(count) + 100
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        let backItem = UIBarButtonItem()
-        backItem.title = "Back"
-        navigationItem.backBarButtonItem = backItem
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        let backItem = UIBarButtonItem()
+//        backItem.title = "Back"
+//        navigationItem.backBarButtonItem = backItem
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let destVC = storyboard?.instantiateViewController(withIdentifier: "detailedRecipes") as? DetailedRecipesViewController

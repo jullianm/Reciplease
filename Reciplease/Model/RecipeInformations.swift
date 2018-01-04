@@ -13,9 +13,9 @@ struct RecipeInformations {
     let name: String
     let ingredients: String
     let portions: [String]
-    let rating: String?
-    let time: String?
-    let image: URL?
+    let rating: String
+    let time: String
+    let image: URL
     let instructions: URL
     
 }

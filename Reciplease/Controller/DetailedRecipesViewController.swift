@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import CoreData
 
 class DetailedRecipesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -36,12 +37,26 @@ class DetailedRecipesViewController: UIViewController, UITableViewDataSource, UI
         self.detailedPortions.dataSource = self
         recipeImage.layer.addSublayer(gradientLayer)
         gradientLayer.frame = recipeImage.bounds
+        removeData()
     }
     
     override func viewDidLayoutSubviews() {
         gradientLayer.frame = recipeImage.bounds
     }
     
+    func removeData() {
+        
+        let context = getContext()
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Recipes")
+        
+        do {
+            var results = try context.fetch(fetchRequest) as! [Recipes]
+            results.removeAll()
+            
+        } catch let error {
+            print(error)
+        }
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recipes[selectedRecipe].portions.count
@@ -52,7 +67,7 @@ class DetailedRecipesViewController: UIViewController, UITableViewDataSource, UI
         cell.portion.text = "- " + recipes[selectedRecipe].portions[indexPath.item]
         
         let imageString = recipes[selectedRecipe].image
-        let data = try? Data(contentsOf: imageString!)
+        let data = try? Data(contentsOf: imageString)
         let imageToDisplay = UIImage(data: data!)
         recipeImage.image = imageToDisplay
         recipeName.text = recipes[selectedRecipe].name
@@ -63,11 +78,31 @@ class DetailedRecipesViewController: UIViewController, UITableViewDataSource, UI
     }
         
     @IBAction func didTapFavorites(_ sender: UITapGestureRecognizer) {
-        if favoritesButton.tintColor == #colorLiteral(red: 0.2673686743, green: 0.5816780329, blue: 0.3659712374, alpha: 1) {
-            favoritesButton.tintColor = nil
-        } else {
-            favoritesButton.tintColor = #colorLiteral(red: 0.2673686743, green: 0.5816780329, blue: 0.3659712374, alpha: 1)
+        favoritesButton.tintColor = #colorLiteral(red: 0.2673686743, green: 0.5816780329, blue: 0.3659712374, alpha: 1)
+ 
+        let context = getContext()
+        let entityDescription = NSEntityDescription.entity(forEntityName: "Recipes", in: context)
+        let newRecipe = NSManagedObject(entity: entityDescription!, insertInto: context)
+        
+        newRecipe.setValue(recipes[selectedRecipe].name, forKey: "name")
+        newRecipe.setValue(recipeRating.text, forKey: "rating")
+        newRecipe.setValue(recipeCookingTime.text, forKey: "cookingTime")
+        newRecipe.setValue(recipes[selectedRecipe].ingredients, forKey: "ingredients")
+        newRecipe.setValue(recipes[selectedRecipe].instructions, forKey: "instructions")
+        newRecipe.setValue(recipes[selectedRecipe].image, forKey: "image")
+//        newRecipe.setValue(, forKey: "portions")
+
+        do {
+            try newRecipe.managedObjectContext?.save()
+        } catch {
+            print(error)
         }
+        
+    }
+    
+    func getContext() -> NSManagedObjectContext {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.persistentContainer.viewContext
     }
     
     @IBAction func getDirections(_ sender: UIButton) {
@@ -76,13 +111,4 @@ class DetailedRecipesViewController: UIViewController, UITableViewDataSource, UI
         present(svc, animated: true, completion: nil)
     }
     
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        let backItem = UIBarButtonItem()
-        backItem.title = "Back"
-        navigationItem.backBarButtonItem = backItem
-    }
-
 }

@@ -24,6 +24,10 @@
 		814ABCC61FE665F600A7BD60 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814ABCC51FE665F600A7BD60 /* RecipeCell.swift */; };
 		814ABCC81FE6662100A7BD60 /* RecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814ABCC71FE6662100A7BD60 /* RecipesViewController.swift */; };
 		814ABCCA1FE6B66B00A7BD60 /* markAndCookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814ABCC91FE6B66B00A7BD60 /* markAndCookingView.swift */; };
+		819505961FF22A9B00471D0E /* Reciplease.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 819505941FF22A9B00471D0E /* Reciplease.xcdatamodeld */; };
+		8195059C1FF2313E00471D0E /* FavoritesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8195059B1FF2313E00471D0E /* FavoritesCell.swift */; };
+		8195059E1FF2322300471D0E /* DetailedFavoritesRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8195059D1FF2322300471D0E /* DetailedFavoritesRecipes.swift */; };
+		819505A01FFE21F800471D0E /* DetailedFavoritePortionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8195059F1FFE21F800471D0E /* DetailedFavoritePortionCell.swift */; };
 		E4EC187C528994B950D469C9 /* Pods_Reciplease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426A51662CB66B28F5023057 /* Pods_Reciplease.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +65,10 @@
 		814ABCC51FE665F600A7BD60 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		814ABCC71FE6662100A7BD60 /* RecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewController.swift; sourceTree = "<group>"; };
 		814ABCC91FE6B66B00A7BD60 /* markAndCookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = markAndCookingView.swift; sourceTree = "<group>"; };
+		819505951FF22A9B00471D0E /* Reciplease.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Reciplease.xcdatamodel; sourceTree = "<group>"; };
+		8195059B1FF2313E00471D0E /* FavoritesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCell.swift; sourceTree = "<group>"; };
+		8195059D1FF2322300471D0E /* DetailedFavoritesRecipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedFavoritesRecipes.swift; sourceTree = "<group>"; };
+		8195059F1FFE21F800471D0E /* DetailedFavoritePortionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedFavoritePortionCell.swift; sourceTree = "<group>"; };
 		8F9F368C07D208660ED27003 /* Pods-Reciplease.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Reciplease/Pods-Reciplease.debug.xcconfig"; sourceTree = "<group>"; };
 		C8B58E65A6924BC73A8F8D4B /* Pods-RecipleaseTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipleaseTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RecipleaseTests/Pods-RecipleaseTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EF5F7DFF9336F20944BE4E83 /* Pods-Reciplease.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease.release.xcconfig"; path = "Pods/Target Support Files/Pods-Reciplease/Pods-Reciplease.release.xcconfig"; sourceTree = "<group>"; };
@@ -154,6 +162,8 @@
 				814ABCC51FE665F600A7BD60 /* RecipeCell.swift */,
 				81122BBE1FE278D500864D37 /* DetailedPortionCell.swift */,
 				814ABCC91FE6B66B00A7BD60 /* markAndCookingView.swift */,
+				8195059B1FF2313E00471D0E /* FavoritesCell.swift */,
+				8195059F1FFE21F800471D0E /* DetailedFavoritePortionCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -162,9 +172,10 @@
 			isa = PBXGroup;
 			children = (
 				81122B8E1FE108C700864D37 /* FirstViewController.swift */,
-				81122B901FE108C700864D37 /* SecondViewController.swift */,
 				814ABCC71FE6662100A7BD60 /* RecipesViewController.swift */,
 				81122BB61FE25C7C00864D37 /* DetailedRecipesViewController.swift */,
+				81122B901FE108C700864D37 /* SecondViewController.swift */,
+				8195059D1FF2322300471D0E /* DetailedFavoritesRecipes.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -173,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				81122B8C1FE108C700864D37 /* AppDelegate.swift */,
+				819505941FF22A9B00471D0E /* Reciplease.xcdatamodeld */,
 				81122B951FE108C700864D37 /* Assets.xcassets */,
 				81122B971FE108C700864D37 /* LaunchScreen.storyboard */,
 				81122B9A1FE108C700864D37 /* Info.plist */,
@@ -401,12 +413,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				819505961FF22A9B00471D0E /* Reciplease.xcdatamodeld in Sources */,
+				8195059C1FF2313E00471D0E /* FavoritesCell.swift in Sources */,
 				81122BB31FE15CAE00864D37 /* IngredientCell.swift in Sources */,
+				8195059E1FF2322300471D0E /* DetailedFavoritesRecipes.swift in Sources */,
 				81122B911FE108C700864D37 /* SecondViewController.swift in Sources */,
 				81122B8D1FE108C700864D37 /* AppDelegate.swift in Sources */,
 				81122BBD1FE2728200864D37 /* FetchingRecipesList.swift in Sources */,
 				81122BC91FE3FC9900864D37 /* RecipeInformations.swift in Sources */,
 				81122B8F1FE108C700864D37 /* FirstViewController.swift in Sources */,
+				819505A01FFE21F800471D0E /* DetailedFavoritePortionCell.swift in Sources */,
 				81122BC71FE3DB9500864D37 /* JSONDataModel.swift in Sources */,
 				81122BB71FE25C7C00864D37 /* DetailedRecipesViewController.swift in Sources */,
 				814ABCC61FE665F600A7BD60 /* RecipeCell.swift in Sources */,
@@ -662,6 +678,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		819505941FF22A9B00471D0E /* Reciplease.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				819505951FF22A9B00471D0E /* Reciplease.xcdatamodel */,
+			);
+			currentVersion = 819505951FF22A9B00471D0E /* Reciplease.xcdatamodel */;
+			path = Reciplease.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 81122B811FE108C700864D37 /* Project object */;
 }

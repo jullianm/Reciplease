@@ -104,6 +104,5 @@ class FirstViewController: UIViewController, UITextFieldDelegate, UITableViewDat
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
-    
 }
 

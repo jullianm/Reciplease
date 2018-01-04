@@ -86,7 +86,7 @@ class FetchingRecipesList {
                             }
                             
                             // Appending each of our recipe object to the array
-                            recipeDetails.append(RecipeInformations(name: match.recipeName, ingredients: match.ingredients.joined(separator: ", ").capitalized, portions: detail.ingredientLines, rating: mark, time: duration, image: finalImage, instructions: detail.source.sourceRecipeUrl))
+                            recipeDetails.append(RecipeInformations(name: match.recipeName, ingredients: match.ingredients.joined(separator: ", ").capitalized, portions: detail.ingredientLines, rating: mark, time: duration!, image: finalImage!, instructions: detail.source.sourceRecipeUrl))
                             
                             // when loop is finished, array is filled we recipes object thus we post a notification
                             
