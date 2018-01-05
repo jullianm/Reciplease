@@ -57,8 +57,6 @@ class RecipesViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recipe_cell") as! RecipeCell
-
-        cell.separatorInset = UIEdgeInsets.zero
                 
         cell.recipeName.text = recipesList[indexPath.item].name
         cell.recipeIngredientsName.text = recipesList[indexPath.item].ingredients
@@ -74,9 +72,8 @@ class RecipesViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let size = tableView.frame.height
-        let count = recipesList.count
-        return size / CGFloat(count) + 100
+        let size = tableView.frame.height / 3
+        return size 
     }
     
 //    override func viewWillDisappear(_ animated: Bool) {

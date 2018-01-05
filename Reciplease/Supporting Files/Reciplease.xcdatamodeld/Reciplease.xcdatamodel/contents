@@ -6,7 +6,7 @@
         <attribute name="ingredients" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="instructions" optional="YES" attributeType="URI" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="portions" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="portions" optional="YES" attributeType="Transformable" customClassName="[String]" syncable="YES"/>
         <attribute name="rating" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>

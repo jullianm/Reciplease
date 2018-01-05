@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Reciplease/Controller/RecipesViewController.swift"
-            timestampString = "536775746.833462"
+            timestampString = "536855925.948172"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "54"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Reciplease/Controller/RecipesViewController.swift"
-            timestampString = "536775746.833625"
+            timestampString = "536855925.948329"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "58"
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Reciplease/Controller/RecipesViewController.swift"
-            timestampString = "536775746.83371"
+            timestampString = "536855925.948444"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "tableView(_:heightForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,12 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Reciplease/Controller/SecondViewController.swift"
-            timestampString = "536776266.666831"
+            timestampString = "536855925.948563"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "33"
             endingLineNumber = "33"
-            landmarkName = "fetchRecipes()"
+            landmarkName = "fetchFavoritesRecipes()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

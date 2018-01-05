@@ -58,7 +58,7 @@ class FetchingRecipesList {
 
                             // Safely Unwrapping Recipe Rating
                             if let rating = match.rating {
-                                mark = String(rating)
+                                mark = String(rating) + "/5"
                             } else {
                                 mark = ""
                             }

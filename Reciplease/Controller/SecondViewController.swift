@@ -13,7 +13,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBOutlet weak var favoritesRecipes: UITableView!
     
-    var favoritesRecipesList = [RecipesViewController]()
+    var favoritesRecipesList = [RecipeInformations]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,24 +21,33 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         self.favoritesRecipes.delegate = self
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        fetchRecipes()
+        fetchFavoritesRecipes()
+        favoritesRecipes.reloadData()
     }
     
-    
-    func fetchRecipes() {
+    func fetchFavoritesRecipes() {
         let context = getContext()
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Recipes")
         fetchRequest.returnsObjectsAsFaults = false
         
         do {
             let results = try context.fetch(fetchRequest) as! [Recipes]
+            
+            if results.count < 1 {
+                let alertVC = UIAlertController(title: "No favorites recipes !", message: "Add a favorite recipe by selecting the star at the top right of the screen", preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alertVC, animated: true, completion: nil)
+                
+            } else {
             for result in results {
-                print(result)
+                favoritesRecipesList.append(RecipeInformations(name: result.name!, ingredients: result.ingredients!, portions: result.portions!, rating: result.rating!, time: result.cookingTime!, image: result.image!, instructions: result.instructions!))
+                }
             }
-        } catch let error {
+            
+        } catch {
             print(error)
         }
     }
@@ -49,29 +58,40 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return favoritesRecipesList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "favorite_cell") as! FavoritesCell
+        
+        let imageString = favoritesRecipesList[indexPath.item].image
+        let data = try? Data(contentsOf: imageString)
+        let image = UIImage(data: data!)
+        cell.favoriteRecipeImage.image = image
+        cell.favoriteRecipeName.text = favoritesRecipesList[indexPath.item].name
+        cell.favoriteRecipeIngredients.text = favoritesRecipesList[indexPath.item].ingredients
+        cell.favoriteRecipeRating.text = favoritesRecipesList[indexPath.item].rating
+        cell.favoriteRecipeCookingTime.text = favoritesRecipesList[indexPath.item].time
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let destVC = storyboard?.instantiateViewController(withIdentifier: "detailedFavoritesRecipes") as! DetailedFavoritesRecipes
+        destVC.favoritesRecipes = favoritesRecipesList
+        destVC.selectedFavoriteRecipe = indexPath.item
         show(destVC, sender: self)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let size = tableView.frame.height
-        let count = 4
-        return size / CGFloat(count) + 100
+        let size = tableView.frame.height / 3
+        return size 
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        favoritesRecipesList = [RecipeInformations]()
     }
-    
 }
 

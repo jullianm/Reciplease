@@ -37,25 +37,10 @@ class DetailedRecipesViewController: UIViewController, UITableViewDataSource, UI
         self.detailedPortions.dataSource = self
         recipeImage.layer.addSublayer(gradientLayer)
         gradientLayer.frame = recipeImage.bounds
-        removeData()
     }
     
     override func viewDidLayoutSubviews() {
         gradientLayer.frame = recipeImage.bounds
-    }
-    
-    func removeData() {
-        
-        let context = getContext()
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Recipes")
-        
-        do {
-            var results = try context.fetch(fetchRequest) as! [Recipes]
-            results.removeAll()
-            
-        } catch let error {
-            print(error)
-        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,7 +75,7 @@ class DetailedRecipesViewController: UIViewController, UITableViewDataSource, UI
         newRecipe.setValue(recipes[selectedRecipe].ingredients, forKey: "ingredients")
         newRecipe.setValue(recipes[selectedRecipe].instructions, forKey: "instructions")
         newRecipe.setValue(recipes[selectedRecipe].image, forKey: "image")
-//        newRecipe.setValue(, forKey: "portions")
+        newRecipe.setValue(recipes[selectedRecipe].portions, forKey: "portions")
 
         do {
             try newRecipe.managedObjectContext?.save()
