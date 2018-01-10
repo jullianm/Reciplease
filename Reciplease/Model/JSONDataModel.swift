@@ -8,13 +8,13 @@
 
 import Foundation
 
-// MARK:- Decoding 'Search recipes response'
+// MARK: Decoding 'Search recipes response'
 
-struct Root : Decodable {
-    let matches : [Matches]
+struct Root: Decodable {
+    let matches: [Matches]
 }
 
-struct Matches : Decodable {
+struct Matches: Decodable {
     let ingredients: [String]
     let rating: Int?
     let recipeName: String
@@ -22,7 +22,7 @@ struct Matches : Decodable {
     let totalTimeInSeconds: Int?
 }
 
-// MARK:- Decoding 'Get recipes response'
+// MARK: Decoding 'Get recipes response'
 
 struct GetRecipesRoot: Decodable {
     let images: [Images]?
@@ -39,8 +39,3 @@ struct Images: Decodable {
 struct Sources: Decodable {
     let sourceRecipeUrl: URL
 }
-
-
-
-
-

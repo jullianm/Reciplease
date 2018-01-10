@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import SafariServices
 
-class DetailedFavoritesRecipes: UIViewController, UITableViewDataSource {
+class DetailedFavoritesRecipes: UIViewController {
  
     @IBOutlet weak var detailedFavoriteRecipeImage: UIImageView!
     @IBOutlet weak var detailedFavoriteRecipeName: UILabel!
@@ -29,7 +29,6 @@ class DetailedFavoritesRecipes: UIViewController, UITableViewDataSource {
         ]
         layer.locations = [0.7, 1]
         return layer
-        
     }()
     
     override func viewDidLoad() {
@@ -38,66 +37,52 @@ class DetailedFavoritesRecipes: UIViewController, UITableViewDataSource {
         detailedFavoriteRecipeImage.layer.addSublayer(gradientLayer)
         gradientLayer.frame = detailedFavoriteRecipeImage.bounds
     }
-    
     override func viewDidLayoutSubviews() {
         gradientLayer.frame = detailedFavoriteRecipeImage.bounds
     }
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoritesRecipes[selectedFavoriteRecipe].portions.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "detailed_favorite_portion") as! DetailedFavoritePortionCell
-        
-        cell.detailedFavoritePortion.text = "- " + favoritesRecipes[selectedFavoriteRecipe].portions[indexPath.item]
-        
-        let imageString = favoritesRecipes[selectedFavoriteRecipe].image
-        let data = try? Data(contentsOf: imageString)
-        let imageToDisplay = UIImage(data: data!)
-        detailedFavoriteRecipeImage.image = imageToDisplay
-        detailedFavoriteRecipeName.text = favoritesRecipes[selectedFavoriteRecipe].name
-        detailedFavoriteRecipeRating.text = favoritesRecipes[selectedFavoriteRecipe].rating
-        detailedFavoriteRecipeCookingTime.text = favoritesRecipes[selectedFavoriteRecipe].time
-        
-        return cell
-        
-    }
-    
     @IBAction func deselectFromFavorites(_ sender: Any) {
         favoritesButton.tintColor = nil
         deleteObject()
     }
-    
     func deleteObject() {
-        
         let context = getContext()
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Recipes")
-        
         do {
             let results = try context.fetch(fetchRequest) as! [Recipes]
-            
                 context.delete(results[selectedFavoriteRecipe])
             do {
                 try context.save()
             } catch {
                 print(error)
             }
-            
         } catch {
             print(error)
         }
     }
-    
     func getContext() -> NSManagedObjectContext {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.persistentContainer.viewContext
     }
-    
     @IBAction func getDirections(_ sender: UIButton) {
         let url = favoritesRecipes[selectedFavoriteRecipe].instructions
         let svc = SFSafariViewController(url: url)
         present(svc, animated: true, completion: nil)
+    }
+}
+extension DetailedFavoritesRecipes: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return favoritesRecipes[selectedFavoriteRecipe].portions.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "detailed_favorite_portion") as! DetailedFavoritePortionCell
+        let imageString = favoritesRecipes[selectedFavoriteRecipe].image
+        let data = try? Data(contentsOf: imageString)
+        let imageToDisplay = UIImage(data: data!)
+        cell.detailedFavoritePortion.text = "- " + favoritesRecipes[selectedFavoriteRecipe].portions[indexPath.item]
+        detailedFavoriteRecipeImage.image = imageToDisplay
+        detailedFavoriteRecipeName.text = favoritesRecipes[selectedFavoriteRecipe].name
+        detailedFavoriteRecipeRating.text = favoritesRecipes[selectedFavoriteRecipe].rating
+        detailedFavoriteRecipeCookingTime.text = favoritesRecipes[selectedFavoriteRecipe].time
+        return cell
     }
 }
