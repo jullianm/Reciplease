@@ -75,11 +75,8 @@ extension DetailedFavoritesRecipes: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "detailed_favorite_portion") as! DetailedFavoritePortionCell
-        let imageString = favoritesRecipes[selectedFavoriteRecipe].image
-        let data = try? Data(contentsOf: imageString)
-        let imageToDisplay = UIImage(data: data!)
         cell.detailedFavoritePortion.text = "- " + favoritesRecipes[selectedFavoriteRecipe].portions[indexPath.item]
-        detailedFavoriteRecipeImage.image = imageToDisplay
+        detailedFavoriteRecipeImage.image = UIImage(data:favoritesRecipes[selectedFavoriteRecipe].image)
         detailedFavoriteRecipeName.text = favoritesRecipes[selectedFavoriteRecipe].name
         detailedFavoriteRecipeRating.text = favoritesRecipes[selectedFavoriteRecipe].rating
         detailedFavoriteRecipeCookingTime.text = favoritesRecipes[selectedFavoriteRecipe].time

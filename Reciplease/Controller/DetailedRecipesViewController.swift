@@ -74,11 +74,8 @@ extension DetailedRecipesViewController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "detailed_portion") as! DetailedPortionCell
-        let imageString = recipes[selectedRecipe].image
-        let data = try? Data(contentsOf: imageString)
-        let imageToDisplay = UIImage(data: data!)
         cell.portion.text = "- " + recipes[selectedRecipe].portions[indexPath.item]
-        recipeImage.image = imageToDisplay
+        recipeImage.image = UIImage(data:recipes[selectedRecipe].image)
         recipeName.text = recipes[selectedRecipe].name
         recipeRating.text = recipes[selectedRecipe].rating
         recipeCookingTime.text = recipes[selectedRecipe].time

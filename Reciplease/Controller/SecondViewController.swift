@@ -64,10 +64,8 @@ extension SecondViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "favorite_cell") as! FavoritesCell
-        let imageString = favoritesRecipesList[indexPath.item].image
-        let data = try? Data(contentsOf: imageString)
-        let image = UIImage(data: data!)
-        cell.favoriteRecipeImage.image = image
+
+        cell.favoriteRecipeImage.image = UIImage(data: favoritesRecipesList[indexPath.item].image)
         cell.favoriteRecipeName.text = favoritesRecipesList[indexPath.item].name
         cell.favoriteRecipeIngredients.text = favoritesRecipesList[indexPath.item].ingredients
         cell.favoriteRecipeRating.text = favoritesRecipesList[indexPath.item].rating

@@ -26,10 +26,8 @@ class RecipeCell: UITableViewCell {
         return layer
     }()
     
-    
     override func layoutSubviews() {
         gradientLayer.frame = recipeImage.bounds
-        recipeImage.layer.addSublayer(gradientLayer)
+        recipeImage.layer.addSublayer(gradientLayer)    
     }
-
 }

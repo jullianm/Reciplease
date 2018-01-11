@@ -17,6 +17,7 @@ class RecipesViewController: UIViewController {
     var recipesList = [RecipeInformations]()
     let receivedRecipes = Notification.Name(rawValue: "recipes")
     let error = Notification.Name(rawValue: "Error")
+    var isFirstLoad = [Int:Bool]()
     
     override func viewDidLoad() {
         self.recipes.delegate = self
@@ -30,7 +31,6 @@ class RecipesViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(displayErrorAlert), name: error, object: nil)
     }
 @objc func displayErrorAlert() {
-    
         let alertVC = UIAlertController(title: "Error", message: "Couldn't retrieve data from server", preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
     self.present(alertVC, animated: true, completion: nil)
@@ -56,13 +56,7 @@ extension RecipesViewController: UITableViewDataSource {
         cell.recipeIngredientsName.text = recipesList[indexPath.item].ingredients
         cell.recipeCookingTime.text = recipesList[indexPath.item].time
         cell.recipeMark.text = recipesList[indexPath.item].rating
-        let imageString = recipesList[indexPath.item].image
-        DispatchQueue.global().async {
-            let data = try? Data(contentsOf: imageString)
-            DispatchQueue.main.async {
-        cell.recipeImage.image = UIImage(data: data!)
-            }
-        }
+        cell.recipeImage.image = UIImage(data: recipesList[indexPath.item].image)
         return cell
     }
 }
@@ -70,6 +64,17 @@ extension RecipesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let size = tableView.frame.height / 3
         return size
+    }
+    
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if isFirstLoad[indexPath.item] != false {
+            cell.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+            UIView.animate(withDuration: 0.7, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [], animations: {
+                cell.transform = .identity
+            }, completion: nil)
+        }
+        isFirstLoad.updateValue(false, forKey: indexPath.item)
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let destVC = storyboard?.instantiateViewController(withIdentifier: "detailedRecipes") as? DetailedRecipesViewController

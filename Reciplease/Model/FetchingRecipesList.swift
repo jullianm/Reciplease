@@ -29,7 +29,6 @@ class FetchingRecipesList {
             }
         }
     }
-    
     private func getRecipes(searchRecipes: Data) {
         
         var recipeDetails = [RecipeInformations]()
@@ -45,41 +44,25 @@ class FetchingRecipesList {
                         guard let getRecipeData = response.result.value else { return }
                         do {
                         let detail = try decoder.decode(GetRecipesRoot.self, from: getRecipeData)
-                            var mark: String
-                            var duration: String
-                            var finalImageURL: URL?
-                            // Safely Unwrapping Recipe Rating
-                            if let rating = match.rating {
-                                mark = String(rating) + "/5"
-                            } else {
-                                mark = ""
+                            var rating: String {
+                                return self.unwrappingRatingFromJSON(jsonData: match)
                             }
-                            // Safely Unwrapping Recipe Cooking Time and Converting Value In Hours and Minutes
-                            if let cookingtime = match.totalTimeInSeconds {
-                                let time = DateComponentsFormatter()
-                                time.allowedUnits = [.hour, .minute]
-                                time.unitsStyle = .abbreviated
-                                duration = time.string(from: TimeInterval(cookingtime))!
-                            } else {
-                                duration = ""
+                            var duration: String {
+                                return self.unwrappingCookingTimeFromJSON(jsonData: match)
                             }
-                            // Safely Unwrapping Recipe Images
-                            if let imagesURL = detail.images {
-                                for imageURL in imagesURL {
-                                    if let largeImageURL = imageURL.hostedLargeUrl {
-                                        finalImageURL = largeImageURL
-                                    } else if let mediumImageURL = imageURL.hostedMediumUrl {
-                                        finalImageURL = mediumImageURL
-                                    }
+                            var finalImageURL: URL? {
+                                return self.unwrappingURLFromJSON(jsonData: detail)
+                            }
+                           
+                            self.convertURLToData(myURL: finalImageURL!, completion: { data in
+                                
+                                recipeDetails.append(RecipeInformations(name: match.recipeName, ingredients: match.ingredients.joined(separator: ", ").capitalized, portions: detail.ingredientLines, rating: rating, time: duration, image: data, instructions: detail.source.sourceRecipeUrl))
+                                
+                                if recipeDetails.count == root.matches.count {
+                                    let recipes = Notification.Name(rawValue: "recipes")
+                                    NotificationCenter.default.post(name: recipes, object: nil, userInfo: ["Data": recipeDetails])
                                 }
-                            }
-                            // Appending each of our recipe object to the array
-                            recipeDetails.append(RecipeInformations(name: match.recipeName, ingredients: match.ingredients.joined(separator: ", ").capitalized, portions: detail.ingredientLines, rating: mark, time: duration, image: finalImageURL!, instructions: detail.source.sourceRecipeUrl))
-                            // when loop is finished, array is filled we recipes object thus we post a notification
-                            if recipeDetails.count == root.matches.count {
-                                let recipes = Notification.Name(rawValue: "recipes")
-                                NotificationCenter.default.post(name: recipes, object: nil, userInfo: ["Data": recipeDetails])
-                            }
+                            })
                         } catch {
                             let error = Notification.Name(rawValue: "Error")
                             let notification = Notification(name: error)
@@ -92,5 +75,45 @@ class FetchingRecipesList {
                 let notification = Notification(name: error)
                 NotificationCenter.default.post(notification)
             }
+    }
+    
+    private func unwrappingRatingFromJSON(jsonData: Matches) -> String {
+        
+        if let rating = jsonData.rating {
+            return String(rating) + "/5"
+        } else {
+            return ""
+        }
+    }
+    
+    private func unwrappingCookingTimeFromJSON(jsonData: Matches) -> String {
+        if let cookingtime = jsonData.totalTimeInSeconds {
+            let time = DateComponentsFormatter()
+            time.allowedUnits = [.hour, .minute]
+            time.unitsStyle = .abbreviated
+            return time.string(from: TimeInterval(cookingtime))!
+        } else {
+            return ""
+        }
+    }
+    
+    private func unwrappingURLFromJSON(jsonData: GetRecipesRoot) -> URL {
+        if let imagesURL = jsonData.images {
+            for imageURL in imagesURL {
+                if let largeImageURL = imageURL.hostedLargeUrl {
+                    return largeImageURL
+                } else if let mediumImageURL = imageURL.hostedMediumUrl {
+                    return mediumImageURL
+                }
+            }
+            }
+        return URL(string:"http://i2.yummly.com/Hot-Turkey-Salad-Sandwiches-Allrecipes.l.png")!
+        }
+    
+    private func convertURLToData(myURL: URL, completion: @escaping (Data) -> ()) {
+        Alamofire.request(myURL).responseData { response in
+            guard let myData = response.result.value else { return }
+            completion(myData)
+        }
     }
 }
