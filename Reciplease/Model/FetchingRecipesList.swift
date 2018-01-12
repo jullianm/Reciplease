@@ -18,7 +18,7 @@ class FetchingRecipesList {
         
         let url = URL(string: "https://api.yummly.com/v1/api/recipes?")
         let HTTPHeaders: HTTPHeaders = ["X-Yummly-App-ID":"dda042d2","X-Yummly-App-Key":"6b4afceb278126620adba7ff792f8b86"]
-        let parameters: Parameters = ["q": searchForRecipesWithIngredients]
+        let parameters: Parameters = ["q": searchForRecipesWithIngredients, "maxResult": 20]
    
         DispatchQueue.global(qos: .userInteractive).async {
             

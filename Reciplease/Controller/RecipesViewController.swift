@@ -22,7 +22,15 @@ class RecipesViewController: UIViewController {
     override func viewDidLoad() {
         self.recipes.delegate = self
         self.recipes.dataSource = self
+        self.title = "Reciplease"
         createObservers()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let backItem = UIBarButtonItem()
+        backItem.title = "Back"
+        navigationItem.backBarButtonItem = backItem
     }
     
 // MARK:- Methods

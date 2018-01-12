@@ -35,9 +35,17 @@ class DetailedRecipesViewController: UIViewController {
         self.detailedPortions.dataSource = self
         recipeImage.layer.addSublayer(gradientLayer)
         gradientLayer.frame = recipeImage.bounds
+        self.title = "Reciplease"
     }
     override func viewDidLayoutSubviews() {
         gradientLayer.frame = recipeImage.bounds
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let backItem = UIBarButtonItem()
+        backItem.title = "Back"
+        navigationItem.backBarButtonItem = backItem
     }
     
     @IBAction func didTapFavorites(_ sender: UITapGestureRecognizer) {

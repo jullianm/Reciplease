@@ -36,6 +36,13 @@ class DetailedFavoritesRecipes: UIViewController {
         detailedFavoriteRecipePortions.dataSource = self
         detailedFavoriteRecipeImage.layer.addSublayer(gradientLayer)
         gradientLayer.frame = detailedFavoriteRecipeImage.bounds
+        self.title = "Reciplease"
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let backItem = UIBarButtonItem()
+        backItem.title = "Back"
+        navigationItem.backBarButtonItem = backItem
     }
     override func viewDidLayoutSubviews() {
         gradientLayer.frame = detailedFavoriteRecipeImage.bounds
