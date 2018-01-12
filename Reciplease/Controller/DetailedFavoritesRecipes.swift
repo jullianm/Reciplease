@@ -56,7 +56,9 @@ class DetailedFavoritesRecipes: UIViewController {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Recipes")
         do {
             let results = try context.fetch(fetchRequest) as! [Recipes]
+            if results.count >= 1 {
                 context.delete(results[selectedFavoriteRecipe])
+            }
             do {
                 try context.save()
             } catch {
