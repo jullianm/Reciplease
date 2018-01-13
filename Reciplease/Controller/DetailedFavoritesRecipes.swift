@@ -54,10 +54,15 @@ class DetailedFavoritesRecipes: UIViewController {
     func deleteObject() {
         let context = getContext()
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Recipes")
+        fetchRequest.returnsObjectsAsFaults = false
         do {
             let results = try context.fetch(fetchRequest) as! [Recipes]
-            if results.count >= 1 {
-                context.delete(results[selectedFavoriteRecipe])
+            if results.count > 0 {
+                results.enumerated().forEach({ index, _ in
+                    if index == selectedFavoriteRecipe {
+                        context.delete(results[selectedFavoriteRecipe])
+                    }
+                })
             }
             do {
                 try context.save()
