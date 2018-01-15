@@ -49,6 +49,9 @@ class DetailedRecipesViewController: UIViewController {
     }
     
     @IBAction func didTapFavorites(_ sender: UITapGestureRecognizer) {
+        if favoritesButton.tintColor == #colorLiteral(red: 0.2673686743, green: 0.5816780329, blue: 0.3659712374, alpha: 1) {
+            return
+        } else {
         favoritesButton.tintColor = #colorLiteral(red: 0.2673686743, green: 0.5816780329, blue: 0.3659712374, alpha: 1)
         let context = getContext()
         let entityDescription = NSEntityDescription.entity(forEntityName: "Recipes", in: context)
@@ -65,6 +68,7 @@ class DetailedRecipesViewController: UIViewController {
         } catch {
             print(error)
         }
+    }
     }
     func getContext() -> NSManagedObjectContext {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
