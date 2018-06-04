@@ -9,7 +9,6 @@
 import Foundation
 
 struct RecipeInformations {
-    
     let name: String
     let ingredients: String
     let portions: [String]
@@ -17,5 +16,4 @@ struct RecipeInformations {
     let time: String
     let image: Data
     let instructions: URL
-    
 }

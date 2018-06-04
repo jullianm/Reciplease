@@ -53,21 +53,7 @@ class DetailedRecipesViewController: UIViewController {
             return
         } else {
         favoritesButton.tintColor = #colorLiteral(red: 0.2673686743, green: 0.5816780329, blue: 0.3659712374, alpha: 1)
-        let context = getContext()
-        let entityDescription = NSEntityDescription.entity(forEntityName: "Recipes", in: context)
-        let newRecipe = NSManagedObject(entity: entityDescription!, insertInto: context)
-        newRecipe.setValue(recipes[selectedRecipe].name, forKey: "name")
-        newRecipe.setValue(recipeRating.text, forKey: "rating")
-        newRecipe.setValue(recipeCookingTime.text, forKey: "cookingTime")
-        newRecipe.setValue(recipes[selectedRecipe].ingredients, forKey: "ingredients")
-        newRecipe.setValue(recipes[selectedRecipe].instructions, forKey: "instructions")
-        newRecipe.setValue(recipes[selectedRecipe].image, forKey: "image")
-        newRecipe.setValue(recipes[selectedRecipe].portions, forKey: "portions")
-        do {
-            try newRecipe.managedObjectContext?.save()
-        } catch {
-            print(error)
-        }
+        Save.recipe(from: recipes, at: selectedRecipe)
     }
     }
     func getContext() -> NSManagedObjectContext {

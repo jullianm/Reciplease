@@ -13,46 +13,35 @@ import CoreData
 
 class RecipleaseTests: XCTestCase {
     
-    
     // Mocking a Yummly API Request
     func testGivenAnIngredientInputWhenFetchingRecipesListIsCalledThenWeGetRecipesDetails() {
         var recipesTest: [RecipeInformations]?
         let ingredients = ["Strawberry"]
-        
         FetchingRecipesList.getRecipes(ingredients: ingredients) { recipes in
             recipesTest = recipes
         }
         guard let recipes = recipesTest else { return }
         XCTAssertEqual(recipes[0].ingredients, "Sugar, Flour, Large Eggs, Strawberries" , "API Request not working")
     }
-    
+
     // Testing CoreData objects
-     func testGivenARecipeSelectedWhenUserAddToFavoriteThenRecipeIsAddedToCoreData() {
-        let context = getContext()
-        let entityDescription = NSEntityDescription.entity(forEntityName: "Recipes", in: context)
-        let newRecipe = NSManagedObject(entity: entityDescription!, insertInto: context)
-        var name = String()
-        newRecipe.setValue("Testing CoreData", forKey: "name")
-        do {
-            try newRecipe.managedObjectContext?.save()
-        } catch {
-            print(error)
-        }
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Recipes")
-        fetchRequest.returnsObjectsAsFaults = false
-        do {
-            let results = try context.fetch(fetchRequest) as! [Recipes]
-            for result in results {
-                name = result.name!
-            }
-        } catch {
-            print(error)
-        }
-        XCTAssertEqual(name, "Testing CoreData" , "Core Data not working")
+     func testGivenARecipeSelectedWhenUserTapToAddToFavoriteThenRecipeIsCorrectlyAddedToCoreData() {
+        // Saving
+        guard let photo = try? Data(contentsOf: URL(string: "http://i2.yummly.com/Hot-Turkey-Salad-Sandwiches-Allrecipes.l.png")!) else { return }
+        let saveRecipes = RecipeInformations(name: "Test", ingredients: "test, test, test, test", portions: ["test portions", "test portions"], rating: "0/0", time: "0", image: photo, instructions: URL(string: "http://jullianmercier.com")!)
+        Save.recipe(from: [saveRecipes], at: 0)
+        //Fetching
+        var fetchRecipes = [RecipeInformations]()
+        Fetch.recipe(into: &fetchRecipes)
+        XCTAssertEqual(fetchRecipes.count, 1)
     }
-    private func getContext() -> NSManagedObjectContext {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.persistentContainer.viewContext
+    func testGivenARecipeSelectedWhenUserTapToDeleteThenRecipeIsCorrectlyDeletedFromCoreData() {
+        var fetchRecipes = [RecipeInformations]()
+        // Deleting the object
+        Delete.recipe(at: 0)
+        // Fetching to implement test
+        Fetch.recipe(into: &fetchRecipes)
+        XCTAssertEqual(fetchRecipes.count, 0)
     }
 }
 

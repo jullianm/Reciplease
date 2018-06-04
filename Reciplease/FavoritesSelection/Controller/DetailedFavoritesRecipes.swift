@@ -20,7 +20,7 @@ class DetailedFavoritesRecipes: UIViewController {
     @IBOutlet weak var favoritesButton: UIBarButtonItem!
     
     var favoritesRecipes = [RecipeInformations]()
-    var selectedFavoriteRecipe = Int()
+    var selectedFavoriteRecipeIndex = Int()
     let gradientLayer: CAGradientLayer = {
         let layer = CAGradientLayer()
         layer.colors = [
@@ -49,51 +49,25 @@ class DetailedFavoritesRecipes: UIViewController {
     }
     @IBAction func deselectFromFavorites(_ sender: Any) {
         favoritesButton.tintColor = nil
-        deleteObject()
-    }
-    func deleteObject() {
-        let context = getContext()
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Recipes")
-        fetchRequest.returnsObjectsAsFaults = false
-        do {
-            let results = try context.fetch(fetchRequest) as! [Recipes]
-            if results.count > 0 {
-                results.enumerated().forEach({ index, _ in
-                    if index == selectedFavoriteRecipe {
-                        context.delete(results[selectedFavoriteRecipe])
-                    }
-                })
-            }
-            do {
-                try context.save()
-            } catch {
-                print(error)
-            }
-        } catch {
-            print(error)
-        }
-    }
-    func getContext() -> NSManagedObjectContext {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.persistentContainer.viewContext
+        Delete.recipe(at: selectedFavoriteRecipeIndex)
     }
     @IBAction func getDirections(_ sender: UIButton) {
-        let url = favoritesRecipes[selectedFavoriteRecipe].instructions
+        let url = favoritesRecipes[selectedFavoriteRecipeIndex].instructions
         let svc = SFSafariViewController(url: url)
         present(svc, animated: true, completion: nil)
     }
 }
 extension DetailedFavoritesRecipes: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoritesRecipes[selectedFavoriteRecipe].portions.count
+        return favoritesRecipes[selectedFavoriteRecipeIndex].portions.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "detailed_favorite_portion") as! DetailedFavoritePortionCell
-        cell.detailedFavoritePortion.text = "- " + favoritesRecipes[selectedFavoriteRecipe].portions[indexPath.item]
-        detailedFavoriteRecipeImage.image = UIImage(data:favoritesRecipes[selectedFavoriteRecipe].image)
-        detailedFavoriteRecipeName.text = favoritesRecipes[selectedFavoriteRecipe].name
-        detailedFavoriteRecipeRating.text = favoritesRecipes[selectedFavoriteRecipe].rating
-        detailedFavoriteRecipeCookingTime.text = favoritesRecipes[selectedFavoriteRecipe].time
+        cell.detailedFavoritePortion.text = "- " + favoritesRecipes[selectedFavoriteRecipeIndex].portions[indexPath.item]
+        detailedFavoriteRecipeImage.image = UIImage(data:favoritesRecipes[selectedFavoriteRecipeIndex].image)
+        detailedFavoriteRecipeName.text = favoritesRecipes[selectedFavoriteRecipeIndex].name
+        detailedFavoriteRecipeRating.text = favoritesRecipes[selectedFavoriteRecipeIndex].rating
+        detailedFavoriteRecipeCookingTime.text = favoritesRecipes[selectedFavoriteRecipeIndex].time
         return cell
     }
 }
