@@ -144,11 +144,11 @@
 			isa = PBXGroup;
 			children = (
 				81122BB01FE1092600864D37 /* Supporting Files */,
-				8144E82820C532CA00983F16 /* Main */,
-				8144E82C20C5335300983F16 /* Search */,
-				8144E83020C5345900983F16 /* Details */,
-				8144E83820C5354000983F16 /* FavoritesSelection */,
+				8144E82820C532CA00983F16 /* Search */,
+				8144E82C20C5335300983F16 /* RecipesDisplay */,
+				8144E83020C5345900983F16 /* DetailsDisplay */,
 				8144E83420C534E200983F16 /* FavoritesDisplay */,
+				8144E83820C5354000983F16 /* FavoritesDetailsDisplay */,
 				81122BAE1FE1091300864D37 /* Helpers */,
 			);
 			path = Reciplease;
@@ -183,19 +183,22 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		8144E82820C532CA00983F16 /* Main */ = {
+		8144E82820C532CA00983F16 /* Search */ = {
 			isa = PBXGroup;
 			children = (
 				8144E82B20C532E900983F16 /* Controller */,
 				8144E82A20C532E600983F16 /* View */,
 				8144E82920C532DE00983F16 /* Model */,
 			);
-			path = Main;
+			path = Search;
 			sourceTree = "<group>";
 		};
 		8144E82920C532DE00983F16 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				81122BBC1FE2728200864D37 /* FetchingRecipesList.swift */,
+				81122BC81FE3FC9900864D37 /* RecipeInformations.swift */,
+				81122BC61FE3DB9500864D37 /* JSONDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -217,22 +220,19 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		8144E82C20C5335300983F16 /* Search */ = {
+		8144E82C20C5335300983F16 /* RecipesDisplay */ = {
 			isa = PBXGroup;
 			children = (
 				8144E82F20C533FD00983F16 /* Controller */,
 				8144E82E20C533F800983F16 /* View */,
 				8144E82D20C533F400983F16 /* Model */,
 			);
-			path = Search;
+			path = RecipesDisplay;
 			sourceTree = "<group>";
 		};
 		8144E82D20C533F400983F16 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				81122BBC1FE2728200864D37 /* FetchingRecipesList.swift */,
-				81122BC81FE3FC9900864D37 /* RecipeInformations.swift */,
-				81122BC61FE3DB9500864D37 /* JSONDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -253,14 +253,14 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		8144E83020C5345900983F16 /* Details */ = {
+		8144E83020C5345900983F16 /* DetailsDisplay */ = {
 			isa = PBXGroup;
 			children = (
 				8144E83320C5347B00983F16 /* Controller */,
 				8144E83220C5347700983F16 /* View */,
 				8144E83120C5347200983F16 /* Model */,
 			);
-			path = Details;
+			path = DetailsDisplay;
 			sourceTree = "<group>";
 		};
 		8144E83120C5347200983F16 /* Model */ = {
@@ -321,14 +321,14 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		8144E83820C5354000983F16 /* FavoritesSelection */ = {
+		8144E83820C5354000983F16 /* FavoritesDetailsDisplay */ = {
 			isa = PBXGroup;
 			children = (
 				8144E83B20C5356100983F16 /* Controller */,
 				8144E83A20C5355D00983F16 /* View */,
 				8144E83920C5355900983F16 /* Model */,
 			);
-			path = FavoritesSelection;
+			path = FavoritesDetailsDisplay;
 			sourceTree = "<group>";
 		};
 		8144E83920C5355900983F16 /* Model */ = {

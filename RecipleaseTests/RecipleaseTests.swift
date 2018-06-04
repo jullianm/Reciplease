@@ -24,7 +24,7 @@ class RecipleaseTests: XCTestCase {
         }
         waitForExpectations(timeout: 10, handler: nil)
     }
-    func testGivenAnUnknownIngredientInputWhenFetchingRecipesListIsCalledThenWeGetAnErrorFromApi() {
+    func testGivenAnUnknownIngredientInputWhenFetchingRecipesListIsCalledThenWeDontGetAnyObjects() {
         let expectations = expectation(description: "Error, no data found")
         let ingredients = ["aWrongIngredienThatDoesntEvenExist"]
         FetchingRecipesList.getRecipes(ingredients: ingredients) { recipes in
