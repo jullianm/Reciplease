@@ -15,7 +15,14 @@ class RecipesViewController: UIViewController {
     @IBOutlet weak var activity: UIActivityIndicatorView!
     var request = FetchingRecipesList()
     var recipesList = [RecipeInformations]()
-    let receivedRecipes = Notification.Name(rawValue: "recipes")
+    var canReloadData = false {
+        didSet {
+            if canReloadData {
+                activity.stopAnimating()
+                recipes.reloadData()
+            }
+        }
+    }
     let error = Notification.Name(rawValue: "Error")
     var isFirstLoad = [Int:Bool]()
     
@@ -23,35 +30,21 @@ class RecipesViewController: UIViewController {
         self.recipes.delegate = self
         self.recipes.dataSource = self
         self.title = "Reciplease"
-        createObservers()
+        NotificationCenter.default.addObserver(self, selector: #selector(displayErrorAlert), name: error, object: nil)
     }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         let backItem = UIBarButtonItem()
         backItem.title = "Back"
         navigationItem.backBarButtonItem = backItem
     }
-    
 // MARK:- Methods
-    func createObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(receivedRecipes(notification:)),name: receivedRecipes, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(displayErrorAlert), name: error, object: nil)
-    }
 @objc func displayErrorAlert() {
         let alertVC = UIAlertController(title: "Error", message: "Couldn't retrieve data from server", preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
     self.present(alertVC, animated: true, completion: nil)
     
     }
-@objc func receivedRecipes(notification: Notification) {
-
-    if let data = notification.userInfo?["Data"] as? [RecipeInformations] {
-        recipesList = data
-        activity.isHidden = true
-        recipes.reloadData()
-    }
-}
 }
 // MARK: Extensions
 extension RecipesViewController: UITableViewDataSource {
@@ -73,12 +66,10 @@ extension RecipesViewController: UITableViewDelegate {
         let size = tableView.frame.height / 3
         return size
     }
-    
-    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if isFirstLoad[indexPath.item] != false {
             cell.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-            UIView.animate(withDuration: 0.7, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [], animations: {
+            UIView.animate(withDuration: 0.7, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [.allowUserInteraction], animations: {
                 cell.transform = .identity
             }, completion: nil)
         }

@@ -36,7 +36,6 @@ class FirstViewController: UIViewController {
         
         ingredientInput.resignFirstResponder()
         if (userInput != ingredientsExample) && (!(trimmedUserInput?.isEmpty)!) && (!ingredients.contains(userInput!))  {
-            
             ingredients.append(userInput!)
             ingredientsList.reloadData()
         }
@@ -50,10 +49,12 @@ class FirstViewController: UIViewController {
     }
     @IBAction func searchForRecipes(_ sender: UITapGestureRecognizer) {
         if !ingredients.isEmpty {
-            self.request.searchForRecipesWithIngredients = self.ingredients
-            self.request.recipesRequest()
-            let destVC = storyboard?.instantiateViewController(withIdentifier: "recipesList") as? RecipesViewController
-            show(destVC!, sender: self)
+            let destVC = self.storyboard?.instantiateViewController(withIdentifier: "recipesList") as? RecipesViewController
+            FetchingRecipesList.getRecipes(ingredients: ingredients) { recipes in
+                destVC?.recipesList = recipes
+                destVC?.canReloadData = true
+            }
+            self.show(destVC!, sender: self)
         }
     }
 }

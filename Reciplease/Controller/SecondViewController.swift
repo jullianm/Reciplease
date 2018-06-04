@@ -25,7 +25,6 @@ class SecondViewController: UIViewController {
         fetchFavoritesRecipes()
         favoritesRecipes.reloadData()
     }
-    
     func fetchFavoritesRecipes() {
         let context = getContext()
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Recipes")
@@ -58,6 +57,7 @@ class SecondViewController: UIViewController {
 }
 
 extension SecondViewController: UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favoritesRecipesList.count
     }
