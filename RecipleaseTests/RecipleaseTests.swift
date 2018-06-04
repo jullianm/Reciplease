@@ -14,17 +14,27 @@ import CoreData
 class RecipleaseTests: XCTestCase {
     
     // Mocking a Yummly API Request
-    func testGivenAnIngredientInputWhenFetchingRecipesListIsCalledThenWeGetRecipesDetails() {
-        var recipesTest: [RecipeInformations]?
-        let ingredients = ["Strawberry"]
+    
+    func testGivenAnIngredientInputWhenFetchingRecipesListIsCalledThenWeGetRecipesObjects() {
+        let expectations = expectation(description: "Retrieved recipes from API")
+        let ingredients = ["Ham", "Onion"]
         FetchingRecipesList.getRecipes(ingredients: ingredients) { recipes in
-            recipesTest = recipes
+            XCTAssertFalse(recipes.isEmpty)
+            expectations.fulfill()
         }
-        guard let recipes = recipesTest else { return }
-        XCTAssertEqual(recipes[0].ingredients, "Sugar, Flour, Large Eggs, Strawberries" , "API Request not working")
+        waitForExpectations(timeout: 10, handler: nil)
     }
-
-    // Testing CoreData objects
+    func testGivenAnUnknownIngredientInputWhenFetchingRecipesListIsCalledThenWeGetAnErrorFromApi() {
+        let expectations = expectation(description: "Error, no data found")
+        let ingredients = ["aWrongIngredienThatDoesntEvenExist"]
+        FetchingRecipesList.getRecipes(ingredients: ingredients) { recipes in
+            XCTAssertTrue(recipes.isEmpty)
+            expectations.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+    
+    // Testing CoreData objects - Save and fetch
      func testGivenARecipeSelectedWhenUserTapToAddToFavoriteThenRecipeIsCorrectlyAddedToCoreData() {
         // Saving
         guard let photo = try? Data(contentsOf: URL(string: "http://i2.yummly.com/Hot-Turkey-Salad-Sandwiches-Allrecipes.l.png")!) else { return }
@@ -35,6 +45,7 @@ class RecipleaseTests: XCTestCase {
         Fetch.recipe(into: &fetchRecipes)
         XCTAssertEqual(fetchRecipes.count, 1)
     }
+    // Delete
     func testGivenARecipeSelectedWhenUserTapToDeleteThenRecipeIsCorrectlyDeletedFromCoreData() {
         var fetchRecipes = [RecipeInformations]()
         // Deleting the object
