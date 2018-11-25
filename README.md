@@ -1,10 +1,27 @@
 # Reciplease
 
-Reciplease helps the user to find a recipe according to the leftover from the fridge.
-User types in any ingredients left from the fridge and a list of recipes is displayed accordingly. 
-He can get the details as well as the directions of each recipes.
-User may also save its favorite recipes in the application.
+**What is Reciplease?**
 
-![alt text](https://raw.githubusercontent.com/jullianm/projet10OC/master/Reciplease.png)
-![alt text](https://raw.githubusercontent.com/jullianm/projet10OC/master/Reciplease2.png)
-![alt text](https://raw.githubusercontent.com/jullianm/projet10OC/master/Reciplease3.png)
+Reciplease is a recipes (obviously!) app that aims at helping the user find a list of recipes according to a list of ingredients.
+
+**How does it work?**
+
+- User types its ingredients and hit the Search button
+- Recipes will be fetched accordingly and displayed in a list
+- User will be able to see the recipe details when selecting one
+- Recipe can be saved to favorites hitting the top-right start button
+
+**Frameworks**
+
+- Alamofire
+- CoreData
+- SafariServices
+- XCTest
+
+**APIs**
+
+- Yummly API
+
+
+![](Reciplease.gif)
+
