@@ -2,7 +2,7 @@
 
 **What is Reciplease?**
 
-Reciplease is a recipes (obviously!) app that aims at helping the user find a list of recipes according to a list of ingredients.
+Reciplease is a recipes app that aims at helping the user find a list of recipes according to a list of ingredients.
 
 **How does it work?**
 
